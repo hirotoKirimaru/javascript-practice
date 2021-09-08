@@ -1,18 +1,177 @@
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
 <head>
-    <script src="libs/qrcode.min.js"/>
+<script type="text/javascript" src="libs/qrcode.min.js"></script>
 </head>
+<body>
+
+
+
+<div>
+URL:<input type="text" id="url" value="https://github.com/hirotoKirimaru"/>
+</div>
+<div>
+width: <input type="text" id="width" value="256"/>
+</div>
+<div>
+height: <input type="text" id="height" value="256"/>
+</div>
+<div>
+colorDark: <input type="text" id="colorDark" value="#ffffff"/>
+</div>
+<div>
+colorLight: <input type="text" id="colorLight" value="#000000"/>
+</div>
+<div>
+correctLevel: 「L:1,M:0,Q:3,H:2」の4種類あるらしい。動的に変更できなかった。
+</div>
+
+
+
+
+<input type="button" value="クリア" onclick="buttonClear()">
+<input type="button" value="URLのみ変更する" onclick="makeCode()">
+<input type="button" value="QRコードの見た目を変更する" onclick="qrReRender()">
+
+
+
+
 <div id="qrcode"></div>
+
+---
+
+以下、CorrectLebelの差の確認
+
+<div style="display:flex">
+M
+<div id="M"></div>
+
+L
+<div id="L"></div>
+
+H
+<div id="H"></div>
+
+Q
+<div id="Q"></div>
+</div>
+
 <script type="text/javascript">
 var qrcode = new QRCode(document.getElementById("qrcode"), {
-	text: "http://jindo.dev.naver.com/collie",
+	text: "https://github.com/hirotoKirimaru",
 	width: 128,
 	height: 128,
-	colorDark : "#000000",
-	colorLight : "#ffffff",
+	colorDark : "#ffffff",
+	colorLight : "#000000",
+	correctLevel : QRCode.CorrectLevel.L
+});
+new QRCode(document.getElementById("M"), {
+	text: "https://github.com/hirotoKirimaru",
+	width: 128,
+	height: 128,
+	colorDark : "#ffffff",
+	colorLight : "#000000",
+	correctLevel : QRCode.CorrectLevel.M
+});
+new QRCode(document.getElementById("L"), {
+	text: "https://github.com/hirotoKirimaru",
+	width: 128,
+	height: 128,
+	colorDark : "#ffffff",
+	colorLight : "#000000",
+	correctLevel : QRCode.CorrectLevel.L
+});
+
+new QRCode(document.getElementById("H"), {
+	text: "https://github.com/hirotoKirimaru",
+	width: 128,
+	height: 128,
+	colorDark : "#ffffff",
+	colorLight : "#000000",
 	correctLevel : QRCode.CorrectLevel.H
 });
+
+new QRCode(document.getElementById("Q"), {
+	text: "https://github.com/hirotoKirimaru",
+	width: 128,
+	height: 128,
+	colorDark : "#ffffff",
+	colorLight : "#000000",
+	correctLevel : QRCode.CorrectLevel.Q
+});
+
+
+function buttonClear(){
+    qrcode.clear();
+}
+
+function makeCode(){
+    qrcode.makeCode(document.getElementById("url").value)
+}
+
+function qrReRender(){
+  qrcode = new QRCode(document.getElementById("qrcode"), {
+	text: document.getElementById("url").value,
+	width: document.getElementById("width").value,
+	height: document.getElementById("height").value,
+	colorDark : document.getElementById("colorDark").value,
+	colorLight : document.getElementById("colorLight").value,
+	//correctLevel : document.getElementById("correctLevel").value
+  });
+}
+
 </script>    
 
 
+初期値：https://github.com/davidshimjs/qrcodejs/blob/master/qrcode.js#L536-L543
+
+</body>
 </html>
+
+
+
+<!--
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ko" lang="ko">
+<head>
+<title>Cross-Browser QRCode generator for Javascript</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
+<script type="text/javascript" src="jquery.min.js"></script>
+<script type="text/javascript" src="libs/qrcode.min.js"></script>
+</head>
+<body>
+<input id="text" type="text" value="http://jindo.dev.naver.com/collie" style="width:80%" /><br />
+<div id="qrcode" style="width:100px; height:100px; margin-top:15px;"></div>
+
+<script type="text/javascript">
+var qrcode = new QRCode(document.getElementById("qrcode"), {
+	width : 100,
+	height : 100
+});
+
+function makeCode () {		
+	var elText = document.getElementById("text");
+	
+	if (!elText.value) {
+		alert("Input a text");
+		elText.focus();
+		return;
+	}
+	
+	qrcode.makeCode(elText.value);
+}
+
+qrcode.makeCode("");
+
+//$("#text").
+//	on("blur", function () {
+//		makeCode();
+//	}).
+//	on("keydown", function (e) {
+//		if (e.keyCode == 13) {
+//			makeCode();
+//		}
+//	});
+</script>
+</body>
+-->
